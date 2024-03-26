@@ -1,6 +1,6 @@
-# Bóper Dice
+# Bópr Dice
 
-Bóper Dice is a web application designed for teams doing team demos. It allows you to enter all your team members' names and roll a 40-sided dice to determine the order of presenting. 
+Bópr Dice is a web application designed for teams doing team demos. It allows you to enter all your team members' names and roll a 40-sided dice to determine the order of presenting. 
 
 ## Features
 
@@ -24,7 +24,7 @@ Bóper Dice is a web application designed for teams doing team demos. It allows 
 
 ## Live
 
-You can see the Bóper Dice application hosted live [here](https://www.boprdice.com).
+You can see the Bópr Dice application hosted live [here](https://www.boprdice.com).
 
 ## Screenshots
 
@@ -36,4 +36,4 @@ Bóper Dice is developed by Lorand Kis.
 
 ## Copywrite
 
-Feel free to use code and ideas from this project however do not copy it one for one and do not re-deploy a near exact clone of this website. Thank you!
+Feel free to use code and ideas from this project however, please do not copy it one for one and do not re-deploy a near exact clone of this website. Thank you!
