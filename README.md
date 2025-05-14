@@ -33,7 +33,7 @@ You can see the Bópr Dice application hosted live [here](https://www.boprdice.c
 
 ## Author
 
-Bóper Dice is developed by Lorand Kis.
+Bóbr Dice is developed by Lorand Kis.
 
 ## Copywrite
 
