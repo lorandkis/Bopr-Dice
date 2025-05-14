@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bóbr Dice</title>
+    <link rel="icon" type="image/x-icon" href="./resources/logos/BoprDiceLogo.svg">
+    <link rel="stylesheet" href="./resources/style.css">
+</head>
+
+<body>
+
+    <div id="logo">
+        <img src="./resources/logos/Bobr.svg" alt="Website Logo">
+        <img src="./resources/logos/BoprDiceLogo.svg" alt="Website Logo">
+        <img src="./resources/logos/Dice.svg" alt="Website Logo">
+    </div>
+
+    <label for="dice-type">Select Dice Type:</label>
+    <select id="dice-type" onchange="resetDice()">
+        <option value="4">d4</option>
+        <option value="6">d6</option>
+        <option value="8">d8</option>
+        <option value="10">d10</option>
+        <option value="12">d12</option>
+        <option value="20">d20</option>
+        <option value="40" selected>d40</option>
+        <option value="100">d100</option>
+    </select>
+
+    <div id="add-column">
+        <input type="text" id="new-column-name" class="input-field" placeholder="Enter Team Member..."
+            onkeydown="if(event.keyCode === 13) {addColumn();}">
+        <button class="btn" onclick="addColumn()">Add New Person</button>
+    </div>
+
+    <div id="dynamic-grid"></div>
+
+
+    <div id="footer">
+        <p>© 2024 Lorand Kis All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <div class="info-widget">
+            Project Purpose
+            <div class="info-content">
+                This project was created for teams doing team demos! Enter all your team members' names and role
+                the dice
+                to see the order you are presenting in.<br> HAPPY DEMOING!
+            </div>
+        </div>
+    </div>
+
+
+    <br><br><br><br>
+
+    <!--END: THE PAGE-->
+
+    <script>
+        function addColumn() {
+            const name = document.getElementById("new-column-name").value.trim();
+            if (!name) return;
+
+            const grid = document.getElementById("dynamic-grid");
+
+            const card = document.createElement("div");
+            card.className = "person-card";
+
+            const nameElem = document.createElement("div");
+            nameElem.className = "name-label";
+            nameElem.textContent = name;
+
+            const dice = document.createElement("div");
+            dice.className = "dice";
+            dice.textContent = "Click to Roll";
+            dice.setAttribute("onclick", "rollDice(this)");
+
+            card.appendChild(nameElem);
+            card.appendChild(dice);
+            grid.appendChild(card);
+
+            document.getElementById("new-column-name").value = "";
+        }
+
+
+
+        function rollDice(dice) {
+            dice.style.pointerEvents = "none";
+            dice.style.transform = "rotate(360deg)";
+            
+            setTimeout(() => {
+                const diceNum = parseInt(document.getElementById('dice-type').value);
+                const result = Math.floor(Math.random() * diceNum) + 1;
+
+                dice.textContent = result;
+                dice.dataset.value = result; // ✔️ Ensure value is tracked!
+                dice.style.transform = "none";
+                dice.style.pointerEvents = "auto";
+
+                const allRolled = Array.from(document.querySelectorAll('.dice'))
+                    .every(d => d.dataset.value);
+
+                if (allRolled) {
+                    showDemoingOrder();
+                }
+            }, 1000);
+        }
+
+
+        function showDemoingOrder() {
+            const cards = document.querySelectorAll('.person-card');
+
+            const diceInfo = Array.from(cards).map(card => {
+                return {
+                    name: card.querySelector('.name-label').textContent.trim(),
+                    value: parseInt(card.querySelector('.dice').dataset.value)
+                };
+            });
+
+            diceInfo.sort((a, b) => {
+                if (a.value !== b.value) return b.value - a.value;
+                return a.name.localeCompare(b.name);
+            });
+
+            const overlay = document.createElement('div');
+            overlay.classList.add('overlay');
+
+            const content = document.createElement('div');
+            content.classList.add('overlay-content');
+
+            const closeBtn = document.createElement('span');
+            closeBtn.classList.add('close-btn');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = () => {
+                document.body.removeChild(overlay);
+                resetDice();
+            };
+
+            const header = document.createElement('h2');
+            header.textContent = "Demoing Order";
+
+            const list = document.createElement('ul');
+            diceInfo.forEach(die => {
+                const li = document.createElement('li');
+                li.textContent = `${die.name}: ${die.value}`;
+                list.appendChild(li);
+            });
+
+            content.appendChild(closeBtn);
+            content.appendChild(header);
+            content.appendChild(list);
+            overlay.appendChild(content);
+            document.body.appendChild(overlay);
+        }
+
+
+        function resetDice() {
+            var diceElements = document.querySelectorAll('.dice');
+            diceElements.forEach(function (dice) {
+                dice.textContent = "Click to Roll";
+                dice.dataset.value = "";
+            });
+        }
+    </script>
+</body>
+
+</html>
