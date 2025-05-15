@@ -1,4 +1,4 @@
-name: Deploy to S3
+name: Deploy to www.boprdice.com
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Sync to S3
+      - name: Sync to S3 (www.boprdice.com)
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete
