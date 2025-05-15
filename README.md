@@ -37,4 +37,4 @@ Bóbr Dice is developed by Lorand Kis.
 
 ## Copywrite
 
-Feel free to use code and ideas from this project however, please do not copy it one for one and do not re-deploy a near exact clone of this website. Thank you!
+Feel free to use code and ideas from this project, however, please do not copy it one for one and do not re-deploy a near exact clone of this website. Thank you!
